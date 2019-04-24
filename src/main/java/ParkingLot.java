@@ -22,6 +22,10 @@ public class ParkingLot {
         return ticket;
     }
 
+    public Car pick(Ticket ticket) {
+        return ticketCarMap.get(ticket);
+    }
+
     private void validCarWhenParking(Car car) throws Exception {
         if (car.getCarNumber() == null) {
             throw new CarWithoutNumberException();
