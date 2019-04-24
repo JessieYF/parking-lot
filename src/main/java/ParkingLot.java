@@ -1,6 +1,7 @@
 import exception.CarWithoutNumberException;
 import exception.DuplicatedCarNumberException;
 import exception.ParkingLotIsNotAvailableException;
+import exception.UnmatchedTicketException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,8 +23,12 @@ public class ParkingLot {
         return ticket;
     }
 
-    public Car pick(Ticket ticket) {
-        return ticketCarMap.get(ticket);
+    public Car pick(Ticket ticket) throws Exception {
+        Car car = ticketCarMap.get(ticket);
+        if (car == null) {
+            throw new UnmatchedTicketException();
+        }
+        return car;
     }
 
     private void validCarWhenParking(Car car) throws Exception {

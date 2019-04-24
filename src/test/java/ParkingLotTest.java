@@ -1,6 +1,7 @@
 import exception.CarWithoutNumberException;
 import exception.DuplicatedCarNumberException;
 import exception.ParkingLotIsNotAvailableException;
+import exception.UnmatchedTicketException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -51,5 +52,13 @@ public class ParkingLotTest {
         Ticket ticket = parkingLot.park(new Car("A12345"));
         Car car = parkingLot.pick(ticket);
         assertEquals("A12345", car.getCarNumber());
+    }
+
+    @Test
+    void should_fail_when_pick_given_a_matched_ticket() throws Exception {
+        ParkingLot parkingLot = new ParkingLot(1);
+        parkingLot.park(new Car("A12345"));
+        UnmatchedTicketException exception = assertThrows(UnmatchedTicketException.class, () -> parkingLot.pick(new Ticket()));
+        assertNotNull(exception);
     }
 }
