@@ -17,4 +17,12 @@ public class ParkingLotTest {
         CarWithoutNumberException exception = assertThrows(CarWithoutNumberException.class, () -> parkingLot.park(new Car(null)));
         assertNotNull(exception);
     }
+
+    @Test
+    void should_fail_when_park_given_a_car_without_number_and_the_parking_lot_is_not_available() throws Exception {
+        ParkingLot parkingLot = new ParkingLot(1);
+        parkingLot.park(new Car("A12345"));
+        CarWithoutNumberException exception = assertThrows(CarWithoutNumberException.class, () -> parkingLot.park(new Car(null)));
+        assertNotNull(exception);
+    }
 }
