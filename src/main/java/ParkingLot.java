@@ -1,8 +1,10 @@
 import exception.CarWithoutNumberException;
+import exception.DuplicatedCarNumberException;
 import exception.ParkingLotIsNotAvailableException;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class ParkingLot {
     private int capacity;
@@ -20,12 +22,21 @@ public class ParkingLot {
         return ticket;
     }
 
-    private void validCarWhenParking(Car car) throws CarWithoutNumberException, ParkingLotIsNotAvailableException {
+    private void validCarWhenParking(Car car) throws Exception {
         if (car.getCarNumber() == null) {
             throw new CarWithoutNumberException();
         }
         if (ticketCarMap.size() >= capacity) {
             throw new ParkingLotIsNotAvailableException();
         }
+        if (isCarNumberDuplicated(car)) {
+            throw new DuplicatedCarNumberException();
+        }
+    }
+
+    private boolean isCarNumberDuplicated(Car car) {
+        return ticketCarMap.values()
+                .stream()
+                .anyMatch(carValue -> Objects.equals(car.getCarNumber(), carValue.getCarNumber()));
     }
 }

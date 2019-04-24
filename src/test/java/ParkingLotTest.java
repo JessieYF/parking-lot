@@ -1,4 +1,5 @@
 import exception.CarWithoutNumberException;
+import exception.DuplicatedCarNumberException;
 import exception.ParkingLotIsNotAvailableException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -32,6 +33,15 @@ public class ParkingLotTest {
         ParkingLot parkingLot = new ParkingLot(1);
         parkingLot.park(new Car("A12345"));
         ParkingLotIsNotAvailableException exception = assertThrows(ParkingLotIsNotAvailableException.class, () -> parkingLot.park(new Car("B12345")));
+        assertNotNull(exception);
+    }
+
+    @Test
+    void should_fail_when_park_given_a_car_with_number_is_duplicated_in_the_parking_lot() throws Exception {
+        String duplicatedCarNumber = "A12345";
+        ParkingLot parkingLot = new ParkingLot(2);
+        parkingLot.park(new Car(duplicatedCarNumber));
+        DuplicatedCarNumberException exception = assertThrows(DuplicatedCarNumberException.class, () -> parkingLot.park(new Car(duplicatedCarNumber)));
         assertNotNull(exception);
     }
 }

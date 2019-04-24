@@ -8,8 +8,9 @@ a car with number and the parking lot is available | park |success and return th
 a car without number and the parking lot is available | park | fail
 a car without number and the parking lot is not available | park | fail
 a car with number and the parking lot is not available | park | fail
-the parking lot is available and no car | park | fail
+~~the parking lot is available and no car~~ | ~~park~~ | ~~fail~~
+a car with number and the parking lot is already has a car with the same number | park | fail
 a matched ticket | pick | success and return the car
-no ticket | pick | fail
+~~no ticket~~ | ~~pick~~ | ~~fail~~
 ticket is not matched | pick | fail
 
