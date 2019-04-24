@@ -1,4 +1,5 @@
 import exception.CarWithoutNumberException;
+import exception.ParkingLotIsNotAvailableException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -23,6 +24,14 @@ public class ParkingLotTest {
         ParkingLot parkingLot = new ParkingLot(1);
         parkingLot.park(new Car("A12345"));
         CarWithoutNumberException exception = assertThrows(CarWithoutNumberException.class, () -> parkingLot.park(new Car(null)));
+        assertNotNull(exception);
+    }
+
+    @Test
+    void should_fail_when_park_given_a_car_with_number_and_the_parking_lot_is_not_available() throws Exception {
+        ParkingLot parkingLot = new ParkingLot(1);
+        parkingLot.park(new Car("A12345"));
+        ParkingLotIsNotAvailableException exception = assertThrows(ParkingLotIsNotAvailableException.class, () -> parkingLot.park(new Car("B12345")));
         assertNotNull(exception);
     }
 }
