@@ -4,4 +4,8 @@ public class Car {
     public Car(String carNumber) {
         this.carNumber = carNumber;
     }
+
+    public String getCarNumber() {
+        return carNumber;
+    }
 }

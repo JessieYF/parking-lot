@@ -1,11 +1,20 @@
+import exception.CarWithoutNumberException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ParkingLotTest {
     @Test
-    void should_success_and_return_the_ticket_when_park_given_a_car_with_number_and_the_parking_lot_is_available() {
-        ParkingLot parkingLot = new ParkingLot();
+    void should_success_and_return_the_ticket_when_park_given_a_car_with_number_and_the_parking_lot_is_available() throws Exception {
+        ParkingLot parkingLot = new ParkingLot(1);
         Car car = new Car("A12345");
         assertNotNull(parkingLot.park(car));
+    }
+
+    @Test
+    void should_fail_when_park_given_a_car_without_number_and_the_parking_lot_is_available() {
+        ParkingLot parkingLot = new ParkingLot(1);
+        CarWithoutNumberException exception = assertThrows(CarWithoutNumberException.class, () -> parkingLot.park(new Car(null)));
+        assertNotNull(exception);
     }
 }
