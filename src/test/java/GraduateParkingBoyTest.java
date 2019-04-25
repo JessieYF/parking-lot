@@ -1,3 +1,4 @@
+import exception.CarWithoutNumberException;
 import exception.DuplicatedCarNumberException;
 import exception.UnmatchedTicketException;
 import org.junit.jupiter.api.Test;
@@ -39,5 +40,13 @@ public class GraduateParkingBoyTest {
         GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(Arrays.asList(parkingLotA, parkingLotB));
         graduateParkingBoy.park(new Car(duplicatedCarNumber));
         assertThrows(DuplicatedCarNumberException.class, () -> graduateParkingBoy.park(new Car(duplicatedCarNumber)));
+    }
+
+    @Test
+    void should_fail_when_park_given_a_car_without_number_and_both_parking_lots_are_available() {
+        ParkingLot parkingLotA = new ParkingLot(1);
+        ParkingLot parkingLotB = new ParkingLot(1);
+        GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(Arrays.asList(parkingLotA, parkingLotB));
+        assertThrows(CarWithoutNumberException.class, () -> graduateParkingBoy.park(new Car(null)));
     }
 }
