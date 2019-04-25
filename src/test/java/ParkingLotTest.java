@@ -51,7 +51,7 @@ public class ParkingLotTest {
     }
 
     @Test
-    void should_fail_when_pick_given_a_matched_ticket() throws Exception {
+    void should_fail_when_pick_given_a_unmatched_ticket() throws Exception {
         ParkingLot parkingLot = new ParkingLot(1);
         parkingLot.park(new Car("A12345"));
         assertThrows(UnmatchedTicketException.class, () -> parkingLot.pick(new Ticket()));

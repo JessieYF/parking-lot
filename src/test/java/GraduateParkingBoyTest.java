@@ -61,4 +61,16 @@ public class GraduateParkingBoyTest {
 
         assertThrows(ParkingLotIsNotAvailableException.class, () -> graduateParkingBoy.park(new Car("C12345")));
     }
+
+    @Test
+    void should_success_when_pick_given_a_matched_ticket() throws Exception {
+        ParkingLot parkingLotA = new ParkingLot(1);
+        ParkingLot parkingLotB = new ParkingLot(1);
+        GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(Arrays.asList(parkingLotA, parkingLotB));
+        Ticket ticket = graduateParkingBoy.park(new Car("A12345"));
+        Car car = graduateParkingBoy.pick(ticket);
+
+        assertNotNull(car);
+        assertEquals("A12345", car.getCarNumber());
+    }
 }

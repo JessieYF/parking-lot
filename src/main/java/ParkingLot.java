@@ -15,6 +15,10 @@ public class ParkingLot {
         this.capacity = capacity;
     }
 
+    public Map<Ticket, Car> getTicketCarMap() {
+        return ticketCarMap;
+    }
+
     public Ticket park(Car car) throws Exception {
         validCarWhenParking(car);
 
@@ -24,15 +28,26 @@ public class ParkingLot {
     }
 
     public Car pick(Ticket ticket) throws Exception {
-        Car car = ticketCarMap.get(ticket);
-        if (car == null) {
+        if (!containTicket(ticket)) {
             throw new UnmatchedTicketException();
         }
-        return car;
+
+        return ticketCarMap.get(ticket);
     }
 
     public boolean isAvailable() {
         return capacity > ticketCarMap.size();
+    }
+
+    public boolean isCarNumberDuplicated(Car car) {
+        return ticketCarMap.values()
+                .stream()
+                .anyMatch(carValue -> Objects.equals(car.getCarNumber(), carValue.getCarNumber()));
+    }
+
+    public boolean containTicket(Ticket ticket) {
+        Car car = ticketCarMap.get(ticket);
+        return car != null;
     }
 
     private void validCarWhenParking(Car car) throws Exception {
@@ -45,11 +60,5 @@ public class ParkingLot {
         if (isCarNumberDuplicated(car)) {
             throw new DuplicatedCarNumberException();
         }
-    }
-
-    public boolean isCarNumberDuplicated(Car car) {
-        return ticketCarMap.values()
-                .stream()
-                .anyMatch(carValue -> Objects.equals(car.getCarNumber(), carValue.getCarNumber()));
     }
 }
