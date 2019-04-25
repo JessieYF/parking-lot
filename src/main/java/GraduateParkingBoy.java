@@ -1,6 +1,8 @@
 import exception.DuplicatedCarNumberException;
+import exception.ParkingLotIsNotAvailableException;
 
 import java.util.List;
+import java.util.Optional;
 
 public class GraduateParkingBoy {
     private List<ParkingLot> parkingLots;
@@ -15,14 +17,15 @@ public class GraduateParkingBoy {
             throw new DuplicatedCarNumberException();
         }
 
-        ParkingLot firstAvailableParkingLot = parkingLots.stream()
+        Optional<ParkingLot> firstAvailableParkingLot = parkingLots.stream()
                 .filter(parkingLot -> parkingLot.isAvailable())
-                .findFirst()
-                .get();
-        if (firstAvailableParkingLot != null) {
-            return firstAvailableParkingLot.park(car);
+                .findFirst();
+
+        if (!firstAvailableParkingLot.isPresent()) {
+            throw new ParkingLotIsNotAvailableException();
         }
-        return null;
+
+        return firstAvailableParkingLot.get().park(car);
     }
 
     private boolean isCarNumberDuplicated(Car car) {
