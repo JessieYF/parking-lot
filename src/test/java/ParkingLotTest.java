@@ -17,24 +17,21 @@ public class ParkingLotTest {
     @Test
     void should_fail_when_park_given_a_car_without_number_and_the_parking_lot_is_available() {
         ParkingLot parkingLot = new ParkingLot(1);
-        CarWithoutNumberException exception = assertThrows(CarWithoutNumberException.class, () -> parkingLot.park(new Car(null)));
-        assertNotNull(exception);
+        assertThrows(CarWithoutNumberException.class, () -> parkingLot.park(new Car(null)));
     }
 
     @Test
     void should_fail_when_park_given_a_car_without_number_and_the_parking_lot_is_not_available() throws Exception {
         ParkingLot parkingLot = new ParkingLot(1);
         parkingLot.park(new Car("A12345"));
-        CarWithoutNumberException exception = assertThrows(CarWithoutNumberException.class, () -> parkingLot.park(new Car(null)));
-        assertNotNull(exception);
+        assertThrows(CarWithoutNumberException.class, () -> parkingLot.park(new Car(null)));
     }
 
     @Test
     void should_fail_when_park_given_a_car_with_number_and_the_parking_lot_is_not_available() throws Exception {
         ParkingLot parkingLot = new ParkingLot(1);
         parkingLot.park(new Car("A12345"));
-        ParkingLotIsNotAvailableException exception = assertThrows(ParkingLotIsNotAvailableException.class, () -> parkingLot.park(new Car("B12345")));
-        assertNotNull(exception);
+        assertThrows(ParkingLotIsNotAvailableException.class, () -> parkingLot.park(new Car("B12345")));
     }
 
     @Test
@@ -42,8 +39,7 @@ public class ParkingLotTest {
         String duplicatedCarNumber = "A12345";
         ParkingLot parkingLot = new ParkingLot(2);
         parkingLot.park(new Car(duplicatedCarNumber));
-        DuplicatedCarNumberException exception = assertThrows(DuplicatedCarNumberException.class, () -> parkingLot.park(new Car(duplicatedCarNumber)));
-        assertNotNull(exception);
+        assertThrows(DuplicatedCarNumberException.class, () -> parkingLot.park(new Car(duplicatedCarNumber)));
     }
 
     @Test
@@ -58,7 +54,6 @@ public class ParkingLotTest {
     void should_fail_when_pick_given_a_matched_ticket() throws Exception {
         ParkingLot parkingLot = new ParkingLot(1);
         parkingLot.park(new Car("A12345"));
-        UnmatchedTicketException exception = assertThrows(UnmatchedTicketException.class, () -> parkingLot.pick(new Ticket()));
-        assertNotNull(exception);
+        assertThrows(UnmatchedTicketException.class, () -> parkingLot.pick(new Ticket()));
     }
 }

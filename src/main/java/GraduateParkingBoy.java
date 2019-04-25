@@ -1,3 +1,5 @@
+import exception.DuplicatedCarNumberException;
+
 import java.util.List;
 
 public class GraduateParkingBoy {
@@ -9,6 +11,10 @@ public class GraduateParkingBoy {
     }
 
     public Ticket park(Car car) throws Exception {
+        if (isCarNumberDuplicated(car)) {
+            throw new DuplicatedCarNumberException();
+        }
+
         ParkingLot firstAvailableParkingLot = parkingLots.stream()
                 .filter(parkingLot -> parkingLot.isAvailable())
                 .findFirst()
@@ -17,5 +23,10 @@ public class GraduateParkingBoy {
             return firstAvailableParkingLot.park(car);
         }
         return null;
+    }
+
+    private boolean isCarNumberDuplicated(Car car) {
+        return parkingLots.stream()
+                .anyMatch(parkingLot -> parkingLot.isCarNumberDuplicated(car));
     }
 }

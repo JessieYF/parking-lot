@@ -47,7 +47,7 @@ public class ParkingLot {
         }
     }
 
-    private boolean isCarNumberDuplicated(Car car) {
+    public boolean isCarNumberDuplicated(Car car) {
         return ticketCarMap.values()
                 .stream()
                 .anyMatch(carValue -> Objects.equals(car.getCarNumber(), carValue.getCarNumber()));
