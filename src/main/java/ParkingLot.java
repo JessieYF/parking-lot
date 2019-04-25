@@ -31,11 +31,15 @@ public class ParkingLot {
         return car;
     }
 
+    public boolean isAvailable() {
+        return capacity > ticketCarMap.size();
+    }
+
     private void validCarWhenParking(Car car) throws Exception {
         if (car.getCarNumber() == null) {
             throw new CarWithoutNumberException();
         }
-        if (ticketCarMap.size() >= capacity) {
+        if (!isAvailable()) {
             throw new ParkingLotIsNotAvailableException();
         }
         if (isCarNumberDuplicated(car)) {
