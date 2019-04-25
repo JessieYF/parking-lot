@@ -73,4 +73,14 @@ public class GraduateParkingBoyTest {
         assertNotNull(car);
         assertEquals("A12345", car.getCarNumber());
     }
+
+    @Test
+    void should_fail_when_pick_given_a_unmatched_ticket() throws Exception {
+        ParkingLot parkingLotA = new ParkingLot(1);
+        ParkingLot parkingLotB = new ParkingLot(1);
+        GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(Arrays.asList(parkingLotA, parkingLotB));
+        graduateParkingBoy.park(new Car("A12345"));
+
+        assertThrows(UnmatchedTicketException.class, () -> graduateParkingBoy.pick(new Ticket()));
+    }
 }

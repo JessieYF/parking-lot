@@ -1,8 +1,7 @@
+import java.util.*;
 import exception.DuplicatedCarNumberException;
 import exception.ParkingLotIsNotAvailableException;
-
-import java.util.*;
-import java.util.stream.Collectors;
+import exception.UnmatchedTicketException;
 
 public class GraduateParkingBoy {
     private List<ParkingLot> parkingLots;
@@ -39,7 +38,7 @@ public class GraduateParkingBoy {
                 .findFirst();
 
         if (!matchedPackingLot.isPresent()) {
-            return null;
+            throw new UnmatchedTicketException();
         }
         return matchedPackingLot.get().pick(ticket);
     }
