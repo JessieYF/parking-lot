@@ -50,6 +50,10 @@ public class ParkingLot {
         return car != null;
     }
 
+    public Integer availableCapacity() {
+        return this.capacity - this.getTicketCarMap().size();
+    }
+
     private void validCarWhenParking(Car car) throws Exception {
         if (car.getCarNumber() == null) {
             throw new CarWithoutNumberException();
