@@ -51,7 +51,11 @@ public class ParkingLot {
     }
 
     public Integer availableCapacity() {
-        return this.capacity - this.getTicketCarMap().size();
+        return capacity - this.getTicketCarMap().size();
+    }
+
+    public Double vacancyRate() {
+        return new Double(availableCapacity())/new Double(capacity);
     }
 
     private void validCarWhenParking(Car car) throws Exception {
