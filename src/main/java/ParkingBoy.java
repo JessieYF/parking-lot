@@ -32,14 +32,11 @@ abstract public class ParkingBoy {
     }
 
     public Car pick(Ticket ticket) throws Exception {
-        Optional<ParkingLot> matchedPackingLot = parkingLots.stream()
+        return parkingLots.stream()
                 .filter(parkingLot -> parkingLot.containTicket(ticket))
-                .findFirst();
-
-        if (!matchedPackingLot.isPresent()) {
-            throw new UnmatchedTicketException();
-        }
-        return matchedPackingLot.get().pick(ticket);
+                .findFirst()
+                .orElseThrow(UnmatchedTicketException::new)
+                .pick(ticket);
     }
 
     protected abstract Optional<ParkingLot> findFirstAvailableParkingLot();
