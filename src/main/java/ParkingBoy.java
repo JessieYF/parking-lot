@@ -31,13 +31,6 @@ abstract public class ParkingBoy {
         return firstAvailableParkingLot.get().park(car);
     }
 
-    protected abstract Optional<ParkingLot> findFirstAvailableParkingLot();
-
-    private boolean isCarNumberDuplicated(Car car) {
-        return parkingLots.stream()
-                .anyMatch(parkingLot -> parkingLot.isCarNumberDuplicated(car));
-    }
-
     public Car pick(Ticket ticket) throws Exception {
         Optional<ParkingLot> matchedPackingLot = parkingLots.stream()
                 .filter(parkingLot -> parkingLot.containTicket(ticket))
@@ -47,5 +40,12 @@ abstract public class ParkingBoy {
             throw new UnmatchedTicketException();
         }
         return matchedPackingLot.get().pick(ticket);
+    }
+
+    protected abstract Optional<ParkingLot> findFirstAvailableParkingLot();
+
+    private boolean isCarNumberDuplicated(Car car) {
+        return parkingLots.stream()
+                .anyMatch(parkingLot -> parkingLot.isCarNumberDuplicated(car));
     }
 }
