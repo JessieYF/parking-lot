@@ -5,7 +5,7 @@ import exception.UnmatchedTicketException;
 import java.util.List;
 import java.util.Optional;
 
-public class ParkingBoy {
+abstract public class ParkingBoy {
     private List<ParkingLot> parkingLots;
 
     public ParkingBoy(List<ParkingLot> parkingLots) {
@@ -22,7 +22,7 @@ public class ParkingBoy {
             throw new DuplicatedCarNumberException();
         }
 
-        Optional<ParkingLot> firstAvailableParkingLot = getParkingLotForParking();
+        Optional<ParkingLot> firstAvailableParkingLot = findFirstAvailableParkingLot();
 
         if (!firstAvailableParkingLot.isPresent()) {
             throw new ParkingLotIsNotAvailableException();
@@ -31,9 +31,7 @@ public class ParkingBoy {
         return firstAvailableParkingLot.get().park(car);
     }
 
-    protected Optional<ParkingLot> getParkingLotForParking() {
-        return null;
-    }
+    protected abstract Optional<ParkingLot> findFirstAvailableParkingLot();
 
     private boolean isCarNumberDuplicated(Car car) {
         return parkingLots.stream()
