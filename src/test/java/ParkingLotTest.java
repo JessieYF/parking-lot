@@ -56,4 +56,12 @@ public class ParkingLotTest {
         parkingLot.park(new Car("A12345"));
         assertThrows(UnmatchedTicketException.class, () -> parkingLot.pick(new Ticket()));
     }
+
+    @Test
+    void should_fail_when_pick_given_a_matched_ticket_has_already_used() throws Exception {
+        ParkingLot parkingLot = new ParkingLot(1);
+        Ticket ticket = parkingLot.park(new Car("A12345"));
+        parkingLot.pick(ticket);
+        assertThrows(UnmatchedTicketException.class, () -> parkingLot.pick(ticket));
+    }
 }

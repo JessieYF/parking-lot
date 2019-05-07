@@ -31,8 +31,9 @@ public class ParkingLot {
         if (!containTicket(ticket)) {
             throw new UnmatchedTicketException();
         }
-
-        return ticketCarMap.get(ticket);
+        Car car = ticketCarMap.get(ticket);
+        ticketCarMap.remove(ticket);
+        return car;
     }
 
     public boolean isAvailable() {
