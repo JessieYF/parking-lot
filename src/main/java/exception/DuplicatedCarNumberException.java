@@ -1,4 +1,4 @@
 package exception;
 
-public class DuplicatedCarNumberException extends Exception {
+public class DuplicatedCarNumberException extends RuntimeException {
 }

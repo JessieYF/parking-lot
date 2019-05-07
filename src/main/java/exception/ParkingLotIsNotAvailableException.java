@@ -1,4 +1,4 @@
 package exception;
 
-public class ParkingLotIsNotAvailableException extends Exception {
+public class ParkingLotIsNotAvailableException extends RuntimeException {
 }

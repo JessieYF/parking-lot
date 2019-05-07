@@ -1,4 +1,4 @@
 package exception;
 
-public class UnmatchedTicketException extends Exception {
+public class UnmatchedTicketException extends RuntimeException {
 }
